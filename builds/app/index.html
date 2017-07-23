@@ -10,27 +10,31 @@
 </head>
 
 <body>
-    <header>
+    <header class="layer">
         <nav class="navbar" role="navigation">
-            <div class="navbar-header">
-                <h1 class="navbar-brand">FUELEAP_NIFS_v75</h1>
-            </div><!-- navbar-header -->
+            <h1 class="navbar-brand">FUELEAP_NIFS_v75</h1>
             <div class="toolbar">
-                <i class="fa fa-clock"></i>
-                <i class="fa fa-message"></i>
-                <i class="fa fa-person"></i>
+                <a href="#changelog"><i class="fa fa-clock-o"></i></a>
+                <a href="#comments"><i class="fa fa-commenting"></i></a>
+                <a href="#members"><i class="fa fa-users"></i></a>
             </div>
         </nav><!-- nav -->
     </header><!-- header -->
 
     <div class="main">
-        <aside id="navigation-pane">
+        <aside id="navigation-pane" class="layer">
             <div class="search-bar-wrapper">
                 <span id="search-bar-icon"><i class="fa fa-search"></i></span>
                 <input type="text" placeholder='Search' id='search-bar'/>
             </div><!-- search-bar -->
+            <div id="diagrams-tree"></div>
+            <!--
             <ul>
-                <li><a href="">Process Flow/Flow Chart (act)</a></li>
+                <li><a href="">Process Flow/Flow Chart (act)</a>
+                    <ul>
+                        <li><a href="#ARMD-NGO">ARMD NGO</a></li>
+                    </ul>
+                </li>
                 <li><a href="">Architecture/Decomposition (bdd)</a></li>
                 <li><a href="">Interface (ibd)</a></li>
                 <li><a href="">Doc Tree/Organization (pkg)</a></li>
@@ -43,10 +47,10 @@
         <div id="view-pane">
 
         </div><!-- view-pane -->
-        <aside id="details-pane">
+        <aside id="details-pane" class="layer">
             <h3>ARMD NGO</h3>
             <table id="details-list">
-                <tr><th>Details</th></tr>
+                <tr><th colspan='2'>Details</th></tr>
                 <tr><td>Type:</td><td>Activity Diagram</td></tr>
                 <tr><td>Modified:</td><td>Jul 19, 2017 12:38<small>PM</small> by nphojana</td></tr>
                 <tr><td>Created:</td><td>Jun 7, 2017 by nphojana</td></tr>

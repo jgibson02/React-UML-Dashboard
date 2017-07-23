@@ -8,35 +8,52 @@ body {
   font-family: 'Lato', 'Open Sans', sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100vh; }
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden; }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   margin: 0; }
 
+ul {
+  padding-left: 20px; }
+
+.layer {
+  box-shadow: 0 0 7px 0px rgba(0, 0, 0, 0.3); }
+
 /**  Header Navigation **/
 header {
-  box-shadow: 0 0 7px 0px rgba(0, 0, 0, 0.3); }
+  background-color: #F7F7F7;
+  z-index: 1000; }
   header .navbar {
-    background-color: #555;
     margin-bottom: 0;
     flex-grow: 0;
     margin: 0 30px;
     display: flex;
-    align-content: center;
     flex-direction: row;
-    background-color: inherit;
     border: none;
     border-radius: 0;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(50, 50, 50, 0.15); }
+    padding: 10px 0; }
+    header .navbar .toolbar {
+      margin: auto 0 auto auto;
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      width: 4em;
+      justify-content: space-between;
+      font-size: 1.75em; }
+      header .navbar .toolbar a {
+        color: #47525E; }
+        header .navbar .toolbar a:hover {
+          color: #337ab7; }
   header .navbar-brand {
     padding: 0;
     height: 100%;
     color: #47525E;
-    margin: 0;
-    font-size: 1.75em;
-    font-weight: 600; }
+    margin: auto 0;
+    font-size: 1.5em;
+    font-weight: bold; }
 
 .main {
   background: #335566;
@@ -46,13 +63,19 @@ header {
   flex-grow: 1;
   align-items: stretch;
   /** Navigation Pane **/
-  /* navigation-pane */ }
+  /* navigation-pane */
+  /* #details-pane */ }
   .main aside {
     background-color: #D6DCE9;
     padding: 1em 1.5rem;
-    z-index: 1; }
+    z-index: 500; }
   .main #navigation-pane {
+    width: 370px;
+    max-width: 370px;
+    overflow: auto;
     /* search-bar */ }
+    .main #navigation-pane a {
+      color: #0275d8; }
     .main #navigation-pane #search-bar-icon {
       left: 30px;
       height: 40px;
@@ -74,7 +97,7 @@ header {
       /* IE 10+ */ }
       .main #navigation-pane #search-bar:focus {
         outline: none;
-        border: 2px solid #2C97CF; }
+        border: 2px solid #9ec5e5; }
       .main #navigation-pane #search-bar::placeholder {
         font-weight: bold; }
       .main #navigation-pane #search-bar:focus::-webkit-input-placeholder {
@@ -85,88 +108,66 @@ header {
         color: transparent; }
       .main #navigation-pane #search-bar:focus:-ms-input-placeholder {
         color: transparent; }
+    .main #navigation-pane > ul {
+      /* List of types */
+      margin-top: 1em;
+      list-style-type: circle; }
+      .main #navigation-pane > ul ul {
+        /* Type-specific lists */
+        list-style-type: disc; }
+      .main #navigation-pane > ul li {
+        margin-top: 0.5em; }
+    .main #navigation-pane #diagrams-tree {
+      width: auto;
+      height: auto; }
+  .main #view-pane {
+    flex-grow: 1;
+    box-shadow: inset 0 0px 5px 3px rgba(0, 0, 0, 0.15); }
+    .main #view-pane > * {
+      width: 100%;
+      height: 100%; }
+  .main #details-pane {
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    max-width: 290px;
+    /* details-list */
+    /* .comments-wrapper */ }
+    .main #details-pane #details-list {
+      margin-top: 1em; }
+      .main #details-pane #details-list tr:first-child {
+        border-bottom: 1px solid #94989F; }
+      .main #details-pane #details-list tr:not(:first-child) {
+        padding: 0.3em;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        vertical-align: top; }
+        .main #details-pane #details-list tr:not(:first-child) td {
+          padding: 0.4em 0; }
+          .main #details-pane #details-list tr:not(:first-child) td:last-child {
+            padding-left: 0.6em; }
+    .main #details-pane .comments-wrapper {
+      margin-top: auto; }
+      .main #details-pane .comments-wrapper textarea {
+        width: 100%;
+        border-radius: 10px;
+        padding: 0.5em;
+        resize: none; }
+        .main #details-pane .comments-wrapper textarea:focus {
+          outline: none;
+          border: 2px solid #9ec5e5;
+          /* Make placeholder text disappear on focus */
+          /* FF 4-18 */
+          /* FF 19+ */
+          /* IE 10+ */ }
+          .main #details-pane .comments-wrapper textarea:focus::placeholder {
+            font-weight: bold; }
+          .main #details-pane .comments-wrapper textarea:focus::-webkit-input-placeholder {
+            color: transparent; }
+          .main #details-pane .comments-wrapper textarea:focus:-moz-placeholder {
+            color: transparent; }
+          .main #details-pane .comments-wrapper textarea:focus:-moz-placeholder {
+            color: transparent; }
+          .main #details-pane .comments-wrapper textarea:focus:-ms-input-placeholder {
+            color: transparent; }
 
-#navigation-pane ul {
-  margin-top: 0.5em;
-  padding-left: 20px;
-  list-style-type: circle; }
-
-#navigation-pane ul li:not(:first-child) {
-  margin-top: 0.5em; }
-
-#view-pane {
-  flex-grow: 1;
-  box-shadow: inset 0 0px 5px 3px rgba(0, 0, 0, 0.15); }
-
-#details-pane {
-  flex-grow: 0;
-  display: flex;
-  flex-direction: column;
-  max-width: 290px; }
-
-#details-list {
-  margin-top: 1em; }
-
-#details-list tr:first-child {
-  border-bottom: 1px solid #94989F; }
-
-#details-list tr:not(:first-child) {
-  padding: 0.3em;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
-
-#details-list tr:not(:first-child) td {
-  padding: 0.4em 0; }
-
-#details-list tr:not(:first-child) td:last-child {
-  padding-left: 0.6em; }
-
-#details-pane .comments-wrapper {
-  margin-top: auto; }
-
-#details-pane .comments-wrapper textarea {
-  width: 100%;
-  border-radius: 10px;
-  padding: 5px; }
-
-/**  Interface Styles **/
-.apt-addheading {
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  /* IE 10+ */
-  user-select: none;
-  /* Likely future */ }
-
-.item-list {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  margin: 10px 5%;
-  font-size: 1rem; }
-
-.item-list .pet-item {
-  border-bottom: 1px dotted gray;
-  padding-bottom: 10px; }
-
-.item-list .pet-item:last-child {
-  border-bottom: none; }
-
-.item-list .pet-name {
-  font-weight: 600;
-  color: #337ab7;
-  font-size: 1.3em;
-  line-height: 100%; }
-
-.item-list .pet-info {
-  font-size: 1.7em; }
-
-.item-list .label-item {
-  font-weight: 600;
-  color: #667B82; }
-
-.item-list .pet-delete {
-  font-size: 1.2em; }
-
-.item-list .apt-date {
-  font-style: italic; }
+/* .main */

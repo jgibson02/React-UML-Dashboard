@@ -6,8 +6,9 @@ var AptList = require('./AptList');
 var AddAppointment = require('./AddAppointment');
 var SearchAppointments = require('./SearchAppointments');
 var SvgFileZoomPan = require('react-svg-file-zoom-pan');
+var SortableTree = require('react-sortable-tree').default;
 
-const my_path = "https://larced.sp.jsc.nasa.gov/sites/EDM/seemb/sysmldiagram/SitePages/FUELEAP_NIFS_v75/diagrams/FUELEAP%20Project%20Interface.svg";
+const my_path = "https://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg" //"https://larced.sp.jsc.nasa.gov/sites/EDM/seemb/sysmldiagram/SitePages/FUELEAP_NIFS_v75/diagrams/FUELEAP%20Project%20Interface.svg";
 
 var MainInterface = React.createClass({
     getInitialState: function() {
@@ -30,7 +31,7 @@ var MainInterface = React.createClass({
     }, //componentDidMount
 
     componentWillUnmount: function() {
-    this.serverRequest.abort();
+        this.serverRequest.abort();
     }, //componentWillUnmount
 
     deleteMessage: function(item) {
@@ -99,14 +100,51 @@ var MainInterface = React.createClass({
           onDelete = { this.deleteMessage }/>
       ) //return
     }.bind(this)); //filteredApts.map
+
     return (
-        <p>Test</p>
-        //<SvgFileZoomPan svgPath={my_path} duration={300} resize={true}/>
+        <SvgFileZoomPan svgPath={my_path} duration={300} resize={true}/>
     ) //return
   } //render
 }); //MainInterface
 
+var DiagramsTree = React.createClass({
+    getInitialState: function() {
+        return {
+            treeData: [
+                { title: 'Process Flow/Flow Chart (act)',
+                    children: [ { title: 'ARMD NGO' } ]
+                },
+                { title: 'Architecture/Decomposition (bdd)' },
+                { title: 'Interface (ibd)' },
+                { title: 'Doc Tree/Organization (pkg)' },
+                { title: 'Parametric (par)' },
+                { title: 'Requirement (req)' },
+                { title: 'Interaction/System Behavior (sd, stm)' },
+                { title: 'Stakeholder Analysis (uc)' }
+            ]
+        } //return
+    }, //getInitialState
+
+    render: function() {
+        return (
+            <SortableTree
+                treeData={this.state.treeData}
+                onChange={treeData => this.setState({ treeData })}
+                scaffoldBlockPxWidth={30}
+                slideRegionSize={50}
+                canDrag={false}
+                isVirtualized={false}
+            />
+        ); // return
+    } // render
+}); // DiagramsTree
+
 ReactDOM.render(
   <MainInterface />,
   document.getElementById('view-pane')
-); //render
+); // render
+
+ReactDOM.render(
+    <DiagramsTree/>,
+    document.getElementById('diagrams-tree')
+);

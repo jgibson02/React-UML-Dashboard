@@ -1,0 +1,200 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Roboto+Slab:400,100,300,700);
+
+/**  Basic Page CSS **/
+body {
+  font-weight: 400;
+  font-size: 2em;
+  position: relative;
+  font-size: 16px;
+  font-family: 'Lato', 'Open Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  margin: 0;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+.layer {
+    box-shadow: 0 0 7px 0px rgba(0,0,0,0.3);
+}
+
+/**  Header Navigation **/
+header {
+    background-color: #F7F7F7;
+    z-index: 1000;
+
+    .navbar {
+        margin-bottom: 0;
+        flex-grow: 0;
+        margin: 0 30px;
+        display: flex;
+        flex-direction: row;
+        border: none;
+        border-radius: 0;
+        padding: 10px 0;
+
+        .toolbar {
+            margin: auto 0 auto auto;
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            width: 4em;
+            justify-content: space-between;
+            font-size: 1.75em;
+
+            a {
+                color: #47525E;
+                &:hover{ color: #337ab7; }
+            }
+        }
+    }
+    .navbar-brand {
+        padding: 0;
+        height: 100%;
+        color: #47525E;
+        margin: auto 0;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+}
+
+.main {
+  background: #335566; /*#596B7F*/
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: stretch;
+
+  /** Navigation Pane **/
+  aside {
+      background-color: #D6DCE9;
+      padding: 1em 1.5rem;
+      z-index: 500;
+  }
+
+    #navigation-pane {
+
+        width: 370px;
+        max-width: 370px;
+        overflow: auto;
+
+        a {
+            color: #0275d8;
+        }
+
+        #search-bar-icon {
+          left: 30px;
+          height: 40px;
+          display: inline;
+          position: absolute;
+          color: #75758B;
+
+          i { vertical-align: -8px; }
+        }
+        #search-bar {
+            border-radius: 20px;
+            padding: 1em 0.5em 1em 35px;
+            width: 100%;
+            height: 40px;
+            border: 1px solid rgba(0,0,0,0.15);
+            display: inline-block;
+
+            &:focus {
+              outline: none;
+              border: 2px solid #9ec5e5;
+            }
+            &::placeholder { font-weight: bold; }
+            /* Make placeholder text disappear on focus */
+            &:focus::-webkit-input-placeholder { color: transparent; }
+            &:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+            &:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+            &:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+        } /* search-bar */
+
+        & > ul { /* List of types */
+            margin-top: 1em;
+            list-style-type: circle;
+
+            & ul { /* Type-specific lists */
+                list-style-type: disc;
+            }
+            li {
+                margin-top: 0.5em;
+            }
+        }
+
+        #diagrams-tree {
+            width: auto;
+            height: auto;
+        }
+    } /* navigation-pane */
+
+    #view-pane {
+        flex-grow: 1;
+        box-shadow: inset 0 0px 5px 3px rgba(0,0,0,0.15);
+
+        & > * {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    #details-pane {
+        flex-grow: 0;
+        display: flex;
+        flex-direction: column;
+        max-width: 290px;
+
+        #details-list {
+            margin-top: 1em;
+
+            tr:first-child {
+                border-bottom: 1px solid #94989F;
+            }
+            tr:not(:first-child) {
+                padding: 0.3em;
+                border-bottom: 1px solid rgba(0,0,0, 0.05);
+                vertical-align: top;
+                td {
+                    padding: 0.4em 0;
+
+                    &:last-child {
+                        padding-left: 0.6em;
+                    }
+                }
+            }
+        } /* details-list */
+
+        .comments-wrapper {
+            margin-top: auto;
+
+            textarea {
+                width: 100%;
+                border-radius: 10px;
+                padding: 0.5em;
+                resize: none;
+
+                &:focus {
+                    outline: none;
+                    border: 2px solid #9ec5e5;
+
+                    &::placeholder { font-weight: bold; }
+                    /* Make placeholder text disappear on focus */
+                    &::-webkit-input-placeholder { color: transparent; }
+                    &:-moz-placeholder { color:transparent; } /* FF 4-18 */
+                    &:-moz-placeholder { color:transparent; } /* FF 19+ */
+                    &:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+                }
+            }
+        } /* .comments-wrapper */
+    } /* #details-pane */
+} /* .main */
