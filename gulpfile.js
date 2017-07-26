@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
     browserify = require('gulp-browserify'),
-    babel = require('gulp-babel')
     webserver = require('gulp-webserver'),
     scss = require('gulp-sass');
 

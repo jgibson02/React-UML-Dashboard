@@ -13,15 +13,32 @@
     "gulp-react": "^3.1.0",
     "gulp-webserver": "^0.9.1",
     "jshint-stylish": "^1.0.0",
-    "lodash": "^4.13.1",
+    "lodash": "^4.17.4",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "reactify": "^1.1.1"
   },
   "dependencies": {
     "browserify": "^14.4.0",
+    "builtins": "^1.0.3",
+    "commondir": "^1.0.1",
+    "deep-equal": "^1.0.1",
+    "derequire": "^2.0.6",
+    "escodegen": "^1.8.1",
+    "esprima-fb": "^15001.1001.0-dev-harmony-fb",
+    "gulp-babel": "^6.1.2",
     "gulp-sass": "^3.1.0",
     "gulp-scss": "^1.4.0",
-    "react-svg-file-zoom-pan": "^0.0.6"
+    "http-browserify": "^1.7.0",
+    "lodash._objecttypes": "^2.4.1",
+    "object-keys": "^1.0.11",
+    "react-sortable-tree": "^0.1.21",
+    "react-svg-file-zoom-pan": "^0.0.6",
+    "rfile": "^1.0.0",
+    "shallow-copy": "0.0.1",
+    "sigmund": "^1.0.1",
+    "stream-combiner": "^0.2.2",
+    "uglify-js": "^3.0.26",
+    "wrappy": "^1.0.2"
   }
 }
