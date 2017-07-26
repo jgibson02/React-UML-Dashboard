@@ -112,7 +112,10 @@ var DiagramsTree = React.createClass({
         return {
             treeData: [
                 { title: 'Process Flow/Flow Chart (act)',
-                    children: [ { title: 'ARMD NGO' } ]
+                    children: [
+                        { title: 'ARMD NGO' },
+                        { title: 'Supercalifrigalisticexpiolodociousthequickbrownfoxjumpsoverthelazydog' }
+                    ]
                 },
                 { title: 'Architecture/Decomposition (bdd)' },
                 { title: 'Interface (ibd)' },
