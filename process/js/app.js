@@ -2,23 +2,16 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('lodash');
 
-var SvgFileZoomPan = require('react-svg-file-zoom-pan');
+var SvgFileZoomPan = require('react-svg-file-zoom-pan').default;
 var SortableTree = require('react-sortable-tree').default;
 
 var MainInterface = React.createClass({
     getInitialState: function() {
         return {
             orderDir: 'asc',
-            selectedDiagram: {
-                "title": "Tiger",
-                "lastModified": "2017-07-26 6:59PM",
-                "lastModifiedBy": "John Doe",
-                "className": "other",
-                "comments": "",
-                "url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg"
-            },
+            selectedDiagram: {},
             queryText: '',
-            detailsVisible: true,
+            detailsVisible: false,
             projectData: []
         } //return
     }, //getInitialState
@@ -76,86 +69,90 @@ var MainInterface = React.createClass({
         }); // setState
     }, // searchDiagrams
 
-  render: function() {
-    var filteredApts = [];
-    var orderBy =  this.state.orderBy;
-    var orderDir = this.state.orderDir;
-    var queryText = this.state.queryText;
-    var projectData =  this.state.projectData;
+    showChangelog: function() {
+        alert(this.state.projectData.changelog);
+    },
 
-    filteredApts = _.orderBy(filteredApts, function(item)  {
-        return item[orderBy].toLowerCase();
-    }, orderDir); // orderBy
+    render: function() {
+        var filteredApts = [];
+        var orderBy =  this.state.orderBy;
+        var orderDir = this.state.orderDir;
+        var queryText = this.state.queryText;
+        var projectData =  this.state.projectData;
 
-    filteredApts = filteredApts.map(function(item, index) {
-      return(
-        <AptList key = { index }
-          singleItem = { item }
-          whichItem = { item }
-          onDelete = { this.deleteMessage }/>
-      ) //return
-    }.bind(this)); //filteredApts.map
+        filteredApts = _.orderBy(filteredApts, function(item)  {
+            return item[orderBy].toLowerCase();
+        }, orderDir); // orderBy
 
-    if (this.state.detailsVisible) {
-        detailsPane =
-        <aside id="details-pane" className="layer">
-            <h3>{this.state.selectedDiagram.title}</h3>
-            <table id="details-list">
-                <thead>
-                    <tr><th colSpan='2'>Details</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Type:</td><td>{this.state.selectedDiagram.className}</td></tr>
-                    <tr><td>Modified:</td><td>{this.state.selectedDiagram.lastModified} by {this.state.selectedDiagram.lastModifiedBy}</td></tr>
-                    <tr><td>Created:</td><td>Jun 7, 2017 by nphojana</td></tr>
-                </tbody>
-            </table>
-            <div className="comments-wrapper">
-                <label htmlFor="comment-box">Comments:</label>
-                <textarea type="text" name="comment-box" placeholder="Start typing..." rows={8} onChange={this.commentsChange} value={this.state.selectedDiagram.comments}></textarea>
-            </div>
-        </aside>
-    } else [
-        detailsPane = ""
-    ]
+        filteredApts = filteredApts.map(function(item, index) {
+          return(
+            <AptList key = { index }
+              singleItem = { item }
+              whichItem = { item }
+              onDelete = { this.deleteMessage }/>
+          ) //return
+        }.bind(this)); //filteredApts.map
 
-    return (
-        <div> {/* Can only return one element, so wrapping it in a div */}
-        <header className="layer">
-            <nav className="navbar" role="navigation">
-                <h1 className="navbar-brand">Project: {this.state.projectData.projectName}</h1>
-                <div className="toolbar">
-                    <div href="#changelog" className="action-button" title="Changes"><i className="fa fa-clock-o"></i></div>
-                    <div href="#comments" className="action-button" title="Comments"><i className="fa fa-commenting"></i></div>
-                    <div href="#members" className="action-button" title="Members"><i className="fa fa-users"></i></div>
-                    <span className="details-icon">
-                        <div className="action-button" title="Show Details" onClick={this.toggleDetails}><i className="fa fa-info"></i></div>
-                    </span>
+        if (this.state.detailsVisible) {
+            detailsPane =
+            <aside id="details-pane" className="layer">
+                <h3>{this.state.selectedDiagram.title}</h3>
+                <table id="details-list">
+                    <thead>
+                        <tr><th colSpan='2'>Details</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Type:</td><td>{this.state.selectedDiagram.className}</td></tr>
+                        <tr><td>Modified:</td><td>{this.state.selectedDiagram.lastModified} by {this.state.selectedDiagram.lastModifiedBy}</td></tr>
+                        <tr><td>Created:</td><td>Jun 7, 2017 by nphojana</td></tr>
+                    </tbody>
+                </table>
+                <div className="comments-wrapper">
+                    <label htmlFor="comment-box">Comments:</label>
+                    <textarea type="text" name="comment-box" placeholder="Start typing..." rows={8} onChange={this.commentsChange} value={this.state.selectedDiagram.comments}></textarea>
                 </div>
-            </nav>
-        </header>
-
-        <div className="main">
-            <aside id="navigation-pane" className="layer">
-                <div id="search-bar-wrapper">
-                    <span id="search-bar-icon"><i className="fa fa-search"></i></span>
-                    <input type="text" placeholder='Search' id='search-bar' onChange={this.searchDiagrams}/>
-                </div>
-                <DiagramsTree
-                    treeData = { this.state.projectData.diagrams != null ? this.state.projectData.diagrams : [] }
-                    onChange = { this.treeListOnChange }
-                    onClick = { this.treeListOnClick }
-                    searchQuery = { this.state.queryText }
-                />
             </aside>
-            <ViewPane
-                svgURL = { this.state.selectedDiagram.url }
-            />
-            {detailsPane}
-        </div>
-        </div>
-    ) //return
-  } //render
+        } else [
+            detailsPane = ""
+        ]
+
+        return (
+            <div> {/* Can only return one element, so wrapping it in a div */}
+            <header className="layer">
+                <nav className="navbar" role="navigation">
+                    <h1 className="navbar-brand">Project: {this.state.projectData.projectName}</h1>
+                    <div className="toolbar">
+                        <div href="#changelog" className="action-button" title="Changes" onClick={this.showChangelog}><i className="fa fa-clock-o"></i></div>
+                        <div href="#comments" className="action-button" title="Comments"><i className="fa fa-commenting"></i></div>
+                        <div href="#members" className="action-button" title="Members"><i className="fa fa-users"></i></div>
+                        <span className="details-icon">
+                            <div className="action-button" title="Show Details" onClick={this.toggleDetails}><i className="fa fa-info"></i></div>
+                        </span>
+                    </div>
+                </nav>
+            </header>
+
+            <div className="main">
+                <aside id="navigation-pane" className="layer">
+                    <div id="search-bar-wrapper">
+                        <span id="search-bar-icon"><i className="fa fa-search"></i></span>
+                        <input type="text" placeholder='Search' id='search-bar' onChange={this.searchDiagrams}/>
+                    </div>
+                    <DiagramsTree
+                        treeData = { this.state.projectData.diagrams != null ? this.state.projectData.diagrams : [] }
+                        onChange = { this.treeListOnChange }
+                        onClick = { this.treeListOnClick }
+                        searchQuery = { this.state.queryText }
+                    />
+                </aside>
+                <ViewPane
+                    svgURL = { this.state.selectedDiagram.url }
+                />
+                {detailsPane}
+            </div>
+            </div>
+        ) //return
+    } //render
 }); //MainInterface
 
 var ViewPane = React.createClass({
@@ -169,14 +166,6 @@ var ViewPane = React.createClass({
 });
 
 var DiagramsTree = React.createClass({
-    expand(expanded) {
-        this.setState({
-            treeData: toggleExpandedForAll({
-                treeData: this.state.treeData,
-                expanded,
-            }),
-        });
-    },
 
     render: function() {
         return (

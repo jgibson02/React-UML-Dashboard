@@ -1,20 +1,11 @@
 var gulp = require('gulp'),
     browserify = require('gulp-browserify'),
+    babel = require('gulp-babel'),
     webserver = require('gulp-webserver'),
     scss = require('gulp-sass');
 
 var src = './process',
     app = './builds/app';
-
-/*
-gulp.task('es6', () => {
-    return gulp.src( './node_modules/react-sortable-tree/dist/main.js' )
-        .pipe(babel({
-            presets: ['react']
-        }))
-        .pipe(gulp.dest(src + '/js'));
-});
-*/
 
 gulp.task('js', function() {
   return gulp.src( src + '/js/app.js' )
@@ -25,6 +16,9 @@ gulp.task('js', function() {
     .on('error', function (err) {
       console.error('Error!', err.message);
     })
+    /*.pipe(babel({
+        presets: ['es2015']
+    }))*/
     .pipe(gulp.dest(app + '/js'));
 });
 

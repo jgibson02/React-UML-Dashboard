@@ -59,7 +59,15 @@ ul {
     padding-right: 0;
 }
 .rst__rowContents {
-    padding: 0 10px;
+    padding: inherit 10px;
+}
+
+.rst__rowTitle {
+    &:after { content: "" }
+}
+
+.rst__rowSubtitle {
+    margin-top: 2em;
 }
 
 /**  Header Navigation **/
@@ -96,6 +104,10 @@ header {
                 font-size: 1em;
                 box-shadow: 0 1px 3px 0px rgba(0,0,0,0.3);
 
+                i {
+                    vertical-align: 0.05em;
+                }
+
                 .fa-users {
                     font-size: 0.9em;
                 }
@@ -118,7 +130,6 @@ header {
 }
 
 .main {
-  background: #335566; /*#596B7F*/
   display: flex;
   flex-direction: row;
   flex-grow: 1;
@@ -221,6 +232,10 @@ header {
     } /* navigation-pane */
 
     #view-pane {
+        background-color: #335566; /*#596B7F*/
+        background-image: url('../images/NASA_logo.png');
+        background-position: center;
+        background-repeat: no-repeat;
         flex-grow: 1;
         box-shadow: inset 0 0px 5px 3px rgba(0,0,0,0.15);
 
