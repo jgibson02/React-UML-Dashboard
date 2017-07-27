@@ -88,9 +88,20 @@ header {
 
             .action-button {
                 margin: 0 0.25em;
-                color: $link;
+                width: 1.5em;
+                color: $header-bg;
+                background-color: $text;
+                border-radius: 10px;
+                text-align: center;
+                font-size: 1em;
+                box-shadow: 0 1px 3px 0px rgba(0,0,0,0.3);
+
+                .fa-users {
+                    font-size: 0.9em;
+                }
+
                 &:hover {
-                    color: $link-hover;
+                    background: $link-hover;
                     cursor: pointer;
                 }
             }

@@ -64,9 +64,17 @@ header {
         display: inline-block; }
       header .navbar .toolbar .action-button {
         margin: 0 0.25em;
-        color: #47525E; }
+        width: 1.5em;
+        color: #F7F7F7;
+        background-color: #47525E;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 1em;
+        box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.3); }
+        header .navbar .toolbar .action-button .fa-users {
+          font-size: 0.9em; }
         header .navbar .toolbar .action-button:hover {
-          color: #30a4dd;
+          background: #30a4dd;
           cursor: pointer; }
   header .navbar-brand {
     padding: 0;
