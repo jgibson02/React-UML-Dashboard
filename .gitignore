@@ -2,3 +2,4 @@
 node_modules
 .tmp
 ./builds/app/js/app.js
+builds/app/js/app.js

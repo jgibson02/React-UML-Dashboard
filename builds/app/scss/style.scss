@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Roboto+Slab:400,100,300,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Roboto+Slab:400,100,300,700);
 
 $aside-bg: #D6DCE9;
 $link: #47525E;
@@ -59,15 +59,15 @@ ul {
     padding-right: 0;
 }
 .rst__rowContents {
-    padding: inherit 10px;
+    padding: 0 10px;
 }
 
-.rst__rowTitle {
-    &:after { content: "" }
+.rst__rowTitleWithSubtitle {
+    height: 1rem;
 }
 
 .rst__rowSubtitle {
-    margin-top: 2em;
+    font-size: 60%;
 }
 
 /**  Header Navigation **/
@@ -253,6 +253,7 @@ header {
 
         #details-list {
             margin-top: 1em;
+            width: 100%;
 
             thead > tr {
                 border-bottom: 2px solid #94989F;
@@ -265,10 +266,11 @@ header {
 
                 td {
                     padding: 0.4em 0;
+                    font-weight: bold;
 
                     &:last-child {
                         padding-left: 0.6em;
-                        font-weight: bold;
+                        font-weight: normal;
                     }
                 }
             }

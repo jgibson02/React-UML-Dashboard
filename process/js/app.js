@@ -4,13 +4,22 @@ var _ = require('lodash');
 
 var SvgFileZoomPan = require('react-svg-file-zoom-pan').default;
 var SortableTree = require('react-sortable-tree').default;
+var ReactModalBootstrap = require('react-modal-bootstrap');
+    var Modal = ReactModalBootstrap.Modal;
+    var ModalHeader = ReactModalBootstrap.ModalHeader;
+    var ModalTitle = ReactModalBootstrap.ModalTitle;
+    var ModalClose = ReactModalBootstrap.ModalClose;
+    var ModalBody = ReactModalBootstrap.ModalBody;
+    var ModalFooter = ReactModalBootstrap.ModalFooter;
 
 var MainInterface = React.createClass({
     getInitialState: function() {
         return {
             orderDir: 'asc',
             selectedDiagram: {},
+            projectComments: '',
             queryText: '',
+            commentsVisible: false,
             detailsVisible: false,
             projectData: []
         } //return
@@ -20,6 +29,9 @@ var MainInterface = React.createClass({
         this.serverRequest = $.get('./js/data.txt', function(result) {
             var tempData = JSON.parse(result);
             var diagramTypesArray = tempData.diagrams;
+            diagramTypesArray = _.remove(diagramTypesArray, function(typeNode) {
+                return !_.isEmpty(typeNode.children);
+            });
             for (var i = 0; i < diagramTypesArray.length; i++) {
                 diagramTypesArray[i].children = _.sortBy(diagramTypesArray[i].children, [function(o)  { return o.title }]);
             }
@@ -44,7 +56,8 @@ var MainInterface = React.createClass({
 
     treeListOnClick: function(diagram) {
         this.setState({
-            selectedDiagram: diagram
+            selectedDiagram: diagram,
+            detailsVisible: true
         });
     }, // treeListOnClick
 
@@ -63,6 +76,12 @@ var MainInterface = React.createClass({
         });
     },
 
+    hideComments: function() {
+        this.setState({
+            commentsVisible: false
+        });
+    }, // hideComments
+
     searchDiagrams: function(event) {
         this.setState({
             queryText: event.target.value
@@ -71,27 +90,30 @@ var MainInterface = React.createClass({
 
     showChangelog: function() {
         alert(this.state.projectData.changelog);
-    },
+    }, // showChangelog
+
+    showComments: function() {
+        var commentsList = "";
+        var treeData = this.state.projectData.diagrams;
+        for (var i = 0; i < treeData.length; i++) {
+            for (var j = 0; j < treeData[i].children.length; j++) {
+                var diagram = treeData[i].children[j];
+                if (diagram.comments !== "") {
+                    commentsList += (diagram.title + "\n" + diagram.comments + "\n\n");
+                }
+            }
+        }
+        if (commentsList === "")
+            commentsList = "No comments have been made.";
+        this.setState({
+            projectComments: commentsList,
+            commentsVisible: true
+        });
+    }, // showComments
 
     render: function() {
-        var filteredApts = [];
-        var orderBy =  this.state.orderBy;
-        var orderDir = this.state.orderDir;
         var queryText = this.state.queryText;
         var projectData =  this.state.projectData;
-
-        filteredApts = _.orderBy(filteredApts, function(item)  {
-            return item[orderBy].toLowerCase();
-        }, orderDir); // orderBy
-
-        filteredApts = filteredApts.map(function(item, index) {
-          return(
-            <AptList key = { index }
-              singleItem = { item }
-              whichItem = { item }
-              onDelete = { this.deleteMessage }/>
-          ) //return
-        }.bind(this)); //filteredApts.map
 
         if (this.state.detailsVisible) {
             detailsPane =
@@ -102,9 +124,14 @@ var MainInterface = React.createClass({
                         <tr><th colSpan='2'>Details</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>Type:</td><td>{this.state.selectedDiagram.className}</td></tr>
-                        <tr><td>Modified:</td><td>{this.state.selectedDiagram.lastModified} by {this.state.selectedDiagram.lastModifiedBy}</td></tr>
-                        <tr><td>Created:</td><td>Jun 7, 2017 by nphojana</td></tr>
+                        <tr><td>Type:</td><td>{this.state.selectedDiagram.type}</td></tr>
+                        <tr><td>Modified:</td><td>{this.state.selectedDiagram.subtitle}</td></tr>
+                        <tr><td>Notes:</td><td>Lorem ipsum dolor sit amet,
+                            consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua. Ut enim
+                             ad minim veniam, quis nostrud exercitation ullamco
+                             laboris nisi ut aliquip ex ea commodo consequat.
+                        </td></tr>
                     </tbody>
                 </table>
                 <div className="comments-wrapper">
@@ -112,18 +139,32 @@ var MainInterface = React.createClass({
                     <textarea type="text" name="comment-box" placeholder="Start typing..." rows={8} onChange={this.commentsChange} value={this.state.selectedDiagram.comments}></textarea>
                 </div>
             </aside>
-        } else [
+        } else {
             detailsPane = ""
-        ]
+        }
 
         return (
             <div> {/* Can only return one element, so wrapping it in a div */}
+            <Modal isOpen={this.state.commentsVisible} onRequestHide={this.hideComments}>
+                <ModalHeader>
+                    <ModalClose onClick={this.hideComments}/>
+                    <ModalTitle>Comments</ModalTitle>
+                </ModalHeader>
+                <ModalBody>
+                    <pre>{this.state.projectComments}</pre>
+                </ModalBody>
+                <ModalFooter>
+                    <button className="btn btn-default" onClick={this.hideComments}>
+                        Close
+                    </button>
+                </ModalFooter>
+            </Modal>
             <header className="layer">
                 <nav className="navbar" role="navigation">
                     <h1 className="navbar-brand">Project: {this.state.projectData.projectName}</h1>
                     <div className="toolbar">
                         <div href="#changelog" className="action-button" title="Changes" onClick={this.showChangelog}><i className="fa fa-clock-o"></i></div>
-                        <div href="#comments" className="action-button" title="Comments"><i className="fa fa-commenting"></i></div>
+                        <div href="#comments" className="action-button" title="Comments" onClick={this.showComments}><i className="fa fa-commenting"></i></div>
                         <div href="#members" className="action-button" title="Members"><i className="fa fa-users"></i></div>
                         <span className="details-icon">
                             <div className="action-button" title="Show Details" onClick={this.toggleDetails}><i className="fa fa-info"></i></div>
@@ -175,14 +216,13 @@ var DiagramsTree = React.createClass({
                 searchQuery = { this.props.searchQuery }
                 scaffoldBlockPxWidth = {30}
                 slideRegionSize = {50}
+                rowHeight = {70}
                 canDrag = {false}
                 isVirtualized = {false}
                 generateNodeProps = {rowInfo => ({
                     onClick: () => {
                         if (rowInfo.path.length > 1)
                             this.props.onClick(rowInfo.node)
-                        else
-                            this.expand(true);
                     }
                 })}
             />

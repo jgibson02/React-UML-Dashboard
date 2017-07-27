@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Roboto+Slab:400,100,300,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Roboto+Slab:400,100,300,700);
 /**  Basic Page CSS **/
 body {
   font-weight: 400;
@@ -41,13 +41,13 @@ ul {
   padding-right: 0; }
 
 .rst__rowContents {
-  padding: inherit 10px; }
+  padding: 0 10px; }
 
-.rst__rowTitle:after {
-  content: ""; }
+.rst__rowTitleWithSubtitle {
+  height: 1rem; }
 
 .rst__rowSubtitle {
-  margin-top: 2em; }
+  font-size: 60%; }
 
 /**  Header Navigation **/
 header {
@@ -196,7 +196,8 @@ header {
     /* details-list */
     /* .comments-wrapper */ }
     .main #details-pane #details-list {
-      margin-top: 1em; }
+      margin-top: 1em;
+      width: 100%; }
       .main #details-pane #details-list thead > tr {
         border-bottom: 2px solid #94989F; }
       .main #details-pane #details-list tr {
@@ -204,10 +205,11 @@ header {
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         vertical-align: top; }
         .main #details-pane #details-list tr td {
-          padding: 0.4em 0; }
+          padding: 0.4em 0;
+          font-weight: bold; }
           .main #details-pane #details-list tr td:last-child {
             padding-left: 0.6em;
-            font-weight: bold; }
+            font-weight: normal; }
     .main #details-pane .comments-wrapper {
       margin-top: auto; }
       .main #details-pane .comments-wrapper textarea {
