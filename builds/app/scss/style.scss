@@ -5,6 +5,8 @@ $link: #47525E;
 $link-hover: #30a4dd;
 $header-bg: #F7F7F7;
 $scrollbar: #81bde2;
+$search-bar-outline: #9ec5e5;
+$text: #47525E;
 
 /**  Basic Page CSS **/
 body {
@@ -33,6 +35,12 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   margin: 0;
+}
+
+.details-icon {
+    margin-left: 0.5em;
+    padding-left: 0.5em;
+    border-left: 2px solid $text;
 }
 
 ul {
@@ -70,24 +78,28 @@ header {
         padding: 10px 0;
 
         .toolbar {
-            margin: auto 0 auto auto;
-            display: flex;
-            flex-direction: row;
+            margin-left: auto;
             height: 100%;
-            width: 4em;
-            justify-content: space-between;
             font-size: 1.75em;
 
-            a {
+            * {
+                display: inline-block;
+            }
+
+            .action-button {
+                margin: 0 0.25em;
                 color: $link;
-                &:hover{ color: $link-hover; }
+                &:hover {
+                    color: $link-hover;
+                    cursor: pointer;
+                }
             }
         }
     }
     .navbar-brand {
         padding: 0;
         height: 100%;
-        color: #47525E;
+        color: $text;
         margin: auto 0;
         font-size: 1.5em;
         font-weight: bold;
@@ -118,34 +130,47 @@ header {
             color: #0275d8;
         }
 
-        #search-bar-icon {
-          left: 30px;
-          height: 40px;
-          display: inline;
-          position: absolute;
-          color: #75758B;
+        #search-bar-wrapper {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 0.7em;
 
-          i { vertical-align: -8px; }
-        }
-        #search-bar {
-            border-radius: 20px;
-            padding: 1em 0.5em 1em 35px;
-            width: 100%;
-            height: 40px;
-            border: 1px solid rgba(0,0,0,0.15);
-            display: inline-block;
+            #search-bar-icon {
+              left: 30px;
+              height: 40px;
+              background: white;
+              color: #75758B;
+              padding-left: 1em;
+              border-top: 1px solid rgba(0,0,0,0.15);
+              border-left: 1px solid rgba(0,0,0,0.15);
+              border-bottom: 1px solid rgba(0,0,0,0.15);
+              border-radius: 20px 0 0 20px;
 
-            &:focus {
-              outline: none;
-              border: 2px solid #9ec5e5;
+              i { vertical-align: -8px; }
             }
-            &::placeholder { font-weight: bold; }
-            /* Make placeholder text disappear on focus */
-            &:focus::-webkit-input-placeholder { color: transparent; }
-            &:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
-            &:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
-            &:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
-        } /* search-bar */
+
+            #search-bar {
+                border-radius: 0 20px 20px 0;
+                padding: 1em 0.5em 1em 0.5em;
+                width: 100%;
+                height: 40px;
+                border-left: none;
+                border-top: 1px solid rgba(0,0,0,0.15);
+                border-right: 1px solid rgba(0,0,0,0.15);
+                border-bottom: 1px solid rgba(0,0,0,0.15);
+
+                &:focus {
+                    outline: none;
+                }
+
+                &::placeholder { font-weight: bold; }
+                /* Make placeholder text disappear on focus */
+                &:focus::-webkit-input-placeholder { color: transparent; }
+                &:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+                &:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+                &:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+            } /* search-bar */
+        } /* search-bar-wrapper */
 
         & > ul { /* List of types */
             margin-top: 1em;
@@ -217,6 +242,7 @@ header {
 
                     &:last-child {
                         padding-left: 0.6em;
+                        font-weight: bold;
                     }
                 }
             }

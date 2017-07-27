@@ -23,6 +23,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   margin: 0; }
 
+.details-icon {
+  margin-left: 0.5em;
+  padding-left: 0.5em;
+  border-left: 2px solid #47525E; }
+
 ul {
   padding-left: 20px; }
 
@@ -52,17 +57,17 @@ header {
     border-radius: 0;
     padding: 10px 0; }
     header .navbar .toolbar {
-      margin: auto 0 auto auto;
-      display: flex;
-      flex-direction: row;
+      margin-left: auto;
       height: 100%;
-      width: 4em;
-      justify-content: space-between;
       font-size: 1.75em; }
-      header .navbar .toolbar a {
+      header .navbar .toolbar * {
+        display: inline-block; }
+      header .navbar .toolbar .action-button {
+        margin: 0 0.25em;
         color: #47525E; }
-        header .navbar .toolbar a:hover {
-          color: #30a4dd; }
+        header .navbar .toolbar .action-button:hover {
+          color: #30a4dd;
+          cursor: pointer; }
   header .navbar-brand {
     padding: 0;
     height: 100%;
@@ -89,41 +94,51 @@ header {
     width: 24.5em;
     max-width: 24.5em;
     overflow: auto;
-    /* search-bar */ }
+    /* search-bar-wrapper */ }
     .main #navigation-pane a {
       color: #0275d8; }
-    .main #navigation-pane #search-bar-icon {
-      left: 30px;
-      height: 40px;
-      display: inline;
-      position: absolute;
-      color: #75758B; }
-      .main #navigation-pane #search-bar-icon i {
-        vertical-align: -8px; }
-    .main #navigation-pane #search-bar {
-      border-radius: 20px;
-      padding: 1em 0.5em 1em 35px;
-      width: 100%;
-      height: 40px;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      display: inline-block;
-      /* Make placeholder text disappear on focus */
-      /* FF 4-18 */
-      /* FF 19+ */
-      /* IE 10+ */ }
-      .main #navigation-pane #search-bar:focus {
-        outline: none;
-        border: 2px solid #9ec5e5; }
-      .main #navigation-pane #search-bar::placeholder {
-        font-weight: bold; }
-      .main #navigation-pane #search-bar:focus::-webkit-input-placeholder {
-        color: transparent; }
-      .main #navigation-pane #search-bar:focus:-moz-placeholder {
-        color: transparent; }
-      .main #navigation-pane #search-bar:focus::-moz-placeholder {
-        color: transparent; }
-      .main #navigation-pane #search-bar:focus:-ms-input-placeholder {
-        color: transparent; }
+    .main #navigation-pane #search-bar-wrapper {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 0.7em;
+      /* search-bar */ }
+      .main #navigation-pane #search-bar-wrapper #search-bar-icon {
+        left: 30px;
+        height: 40px;
+        background: white;
+        color: #75758B;
+        padding-left: 1em;
+        border-top: 1px solid rgba(0, 0, 0, 0.15);
+        border-left: 1px solid rgba(0, 0, 0, 0.15);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 20px 0 0 20px; }
+        .main #navigation-pane #search-bar-wrapper #search-bar-icon i {
+          vertical-align: -8px; }
+      .main #navigation-pane #search-bar-wrapper #search-bar {
+        border-radius: 0 20px 20px 0;
+        padding: 1em 0.5em 1em 0.5em;
+        width: 100%;
+        height: 40px;
+        border-left: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.15);
+        border-right: 1px solid rgba(0, 0, 0, 0.15);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        /* Make placeholder text disappear on focus */
+        /* FF 4-18 */
+        /* FF 19+ */
+        /* IE 10+ */ }
+        .main #navigation-pane #search-bar-wrapper #search-bar:focus {
+          outline: none; }
+        .main #navigation-pane #search-bar-wrapper #search-bar::placeholder {
+          font-weight: bold; }
+        .main #navigation-pane #search-bar-wrapper #search-bar:focus::-webkit-input-placeholder {
+          color: transparent; }
+        .main #navigation-pane #search-bar-wrapper #search-bar:focus:-moz-placeholder {
+          color: transparent; }
+        .main #navigation-pane #search-bar-wrapper #search-bar:focus::-moz-placeholder {
+          color: transparent; }
+        .main #navigation-pane #search-bar-wrapper #search-bar:focus:-ms-input-placeholder {
+          color: transparent; }
     .main #navigation-pane > ul {
       /* List of types */
       margin-top: 1em;
@@ -172,7 +187,8 @@ header {
         .main #details-pane #details-list tr td {
           padding: 0.4em 0; }
           .main #details-pane #details-list tr td:last-child {
-            padding-left: 0.6em; }
+            padding-left: 0.6em;
+            font-weight: bold; }
     .main #details-pane .comments-wrapper {
       margin-top: auto; }
       .main #details-pane .comments-wrapper textarea {
