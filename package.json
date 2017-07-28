@@ -36,7 +36,7 @@
     "object-keys": "^1.0.11",
     "react-modal-bootstrap": "^1.1.1",
     "react-sortable-tree": "^0.1.21",
-    "react-svg-file-zoom-pan": "^0.0.6",
+    "react-svg-file-zoom-pan": "0.0.6",
     "rfile": "^1.0.0",
     "shallow-copy": "0.0.1",
     "sigmund": "^1.0.1",
