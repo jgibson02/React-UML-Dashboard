@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('lodash');
 
+var Clipboard = require('clipboard');
 var SvgFileZoomPan = require('react-svg-file-zoom-pan').default;
 var SortableTree = require('react-sortable-tree').default;
 var ReactModalBootstrap = require('react-modal-bootstrap');
@@ -15,10 +16,11 @@ var ReactModalBootstrap = require('react-modal-bootstrap');
 var MainInterface = React.createClass({
     getInitialState: function() {
         return {
-            orderDir: 'asc',
-            selectedDiagram: {},
+            selectedDiagram: null,
             projectComments: '',
+            changelog: '',
             queryText: '',
+            changelogVisible: false,
             commentsVisible: false,
             detailsVisible: false,
             projectData: []
@@ -26,7 +28,7 @@ var MainInterface = React.createClass({
     }, //getInitialState
 
     componentDidMount: function() {
-        this.serverRequest = $.get('./js/data.txt', function(result) {
+        this.dataRequest = $.get('./js/data.txt', function(result) {
             var tempData = JSON.parse(result);
             var diagramTypesArray = tempData.diagrams;
             diagramTypesArray = _.remove(diagramTypesArray, function(typeNode) {
@@ -39,11 +41,19 @@ var MainInterface = React.createClass({
             this.setState({
                 projectData: tempData
             }); //setState
+        }.bind(this)); //dataRequest
+        this.changelogRequest = $.get('./changelog.txt', function(result) {
+            var tempChangelog = result;
+            this.setState({
+                changelog: tempChangelog
+            }); //setState
         }.bind(this)); //serverRequest
+        new Clipboard('#comments-copy');
     }, //componentDidMount
 
     componentWillUnmount: function() {
-        this.serverRequest.abort(); // Close project data request
+        this.dataRequest.abort(); // Close project data request
+        this.changelogRequest.abort(); // Close project changelog request
     }, //componentWillUnmount
 
     treeListOnChange: function(treeData) {
@@ -69,12 +79,22 @@ var MainInterface = React.createClass({
         });
     },
 
+    downloadDiagram: function(event) {
+        window.open(this.state.selectedDiagram.url);
+    }, // downloadDiagram
+
     toggleDetails: function() {
         var tempVisibility = !this.state.detailsVisible;
         this.setState({
             detailsVisible: tempVisibility
         });
     },
+
+    hideChangelog: function() {
+        this.setState({
+            changelogVisible: false
+        });
+    }, // hideChangelog
 
     hideComments: function() {
         this.setState({
@@ -89,7 +109,9 @@ var MainInterface = React.createClass({
     }, // searchDiagrams
 
     showChangelog: function() {
-        alert(this.state.projectData.changelog);
+        this.setState({
+            changelogVisible: true
+        });
     }, // showChangelog
 
     showComments: function() {
@@ -99,7 +121,7 @@ var MainInterface = React.createClass({
             for (var j = 0; j < treeData[i].children.length; j++) {
                 var diagram = treeData[i].children[j];
                 if (diagram.comments !== "") {
-                    commentsList += (diagram.title + "\n" + diagram.comments + "\n\n");
+                    commentsList += ("Diagram: " + diagram.title + "\nComments: " + diagram.comments + "\n\n");
                 }
             }
         }
@@ -114,8 +136,9 @@ var MainInterface = React.createClass({
     render: function() {
         var queryText = this.state.queryText;
         var projectData =  this.state.projectData;
+        var diagramNotSelected = this.state.selectedDiagram == null;
 
-        if (this.state.detailsVisible) {
+        if (this.state.detailsVisible && !diagramNotSelected) {
             detailsPane =
             <aside id="details-pane" className="layer">
                 <h3>{this.state.selectedDiagram.title}</h3>
@@ -145,15 +168,48 @@ var MainInterface = React.createClass({
 
         return (
             <div> {/* Can only return one element, so wrapping it in a div */}
+            <Modal isOpen={this.state.changelogVisible} onRequestHide={this.hideChangelog}>
+                <ModalHeader>
+                    <ModalClose onClick={this.hideChangelog}/>
+                    <ModalTitle>Changelog</ModalTitle>
+                </ModalHeader>
+                <ModalBody>
+                    {this.state.changelog.split("\n").map(function(item) {
+                        return (
+                            <span>
+                                {item}
+                                <br/>
+                            </span>
+                        )
+                    })}
+                </ModalBody>
+                <ModalFooter>
+                    <button className="btn btn-default" onClick={this.hideChangelog}>
+                        Close
+                    </button>
+                </ModalFooter>
+            </Modal>
             <Modal isOpen={this.state.commentsVisible} onRequestHide={this.hideComments}>
                 <ModalHeader>
                     <ModalClose onClick={this.hideComments}/>
                     <ModalTitle>Comments</ModalTitle>
                 </ModalHeader>
                 <ModalBody>
-                    <pre>{this.state.projectComments}</pre>
+                    <p id="commentsBox">
+                        {this.state.projectComments.split("\n").map(function(item) {
+                            return (
+                                <span>
+                                    {item}
+                                    <br/>
+                                </span>
+                            )
+                        })}
+                    </p>
                 </ModalBody>
                 <ModalFooter>
+                    <button id="comments-copy" className="btn btn-primary" data-clipboard-target="#commentsBox">
+                        <i className="fa fa-clipboard"></i> Copy
+                    </button>
                     <button className="btn btn-default" onClick={this.hideComments}>
                         Close
                     </button>
@@ -163,11 +219,11 @@ var MainInterface = React.createClass({
                 <nav className="navbar" role="navigation">
                     <h1 className="navbar-brand">Project: {this.state.projectData.projectName}</h1>
                     <div className="toolbar">
-                        <div href="#changelog" className="action-button" title="Changes" onClick={this.showChangelog}><i className="fa fa-clock-o"></i></div>
-                        <div href="#comments" className="action-button" title="Comments" onClick={this.showComments}><i className="fa fa-commenting"></i></div>
-                        <div href="#members" className="action-button" title="Members"><i className="fa fa-users"></i></div>
+                        <button className="action-button" title="Changes" onClick={this.showChangelog}><i className="fa fa-clock-o"></i></button>
+                        <button className="action-button" title="Comments" onClick={this.showComments}><i className="fa fa-commenting"></i></button>
+                        <button className="action-button" title="Download" onClick={this.downloadDiagram} disabled={diagramNotSelected}><i className="fa fa-download"></i></button>
                         <span className="details-icon">
-                            <div className="action-button" title="Show Details" onClick={this.toggleDetails}><i className="fa fa-info"></i></div>
+                            <button className="action-button" title="Show Details" onClick={this.toggleDetails} disabled={diagramNotSelected}><i className="fa fa-info"></i></button>
                         </span>
                     </div>
                 </nav>
@@ -187,7 +243,7 @@ var MainInterface = React.createClass({
                     />
                 </aside>
                 <ViewPane
-                    svgURL = { this.state.selectedDiagram.url }
+                    svgURL = { this.state.selectedDiagram != null ? this.state.selectedDiagram.url : '' }
                 />
                 {detailsPane}
             </div>
@@ -212,19 +268,24 @@ var DiagramsTree = React.createClass({
         return (
             <SortableTree
                 treeData = { this.props.treeData }
-                onChange = { treeData => this.props.onChange(treeData) }
+                onChange = { function(treeData) { return this.props.onChange(treeData)}.bind(this) }
                 searchQuery = { this.props.searchQuery }
                 scaffoldBlockPxWidth = {30}
                 slideRegionSize = {50}
                 rowHeight = {70}
                 canDrag = {false}
-                isVirtualized = {false}
-                generateNodeProps = {rowInfo => ({
-                    onClick: () => {
-                        if (rowInfo.path.length > 1)
-                            this.props.onClick(rowInfo.node)
-                    }
-                })}
+                isVirtualized = {true}
+                generateNodeProps = {
+                    function(rowInfo) {
+                        return ({
+                            onClick: function() {
+                                if (rowInfo.path.length > 1)
+                                    this.props.onClick(rowInfo.node)
+                            }.bind(this)
+                        })
+                    }.bind(this)
+                }
+                style = {{height: '94%'}}
             />
         ); // return
     } // render

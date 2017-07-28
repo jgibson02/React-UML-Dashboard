@@ -15,9 +15,9 @@ gulp.task('js', function() {
     }))
     .on('error', function (err) {
       console.error('Error!', err.message);
-    })
-    /*.pipe(babel({
-        presets: ['es2015']
+  })/*
+    .pipe(babel({
+        presets: ['es2015', 'react']
     }))*/
     .pipe(gulp.dest(app + '/js'));
 });

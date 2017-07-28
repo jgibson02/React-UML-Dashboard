@@ -8,6 +8,21 @@ body {
   font-family: 'Lato', 'Open Sans', sans-serif;
   overflow: hidden; }
 
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F7F7F7; }
+
+*::-webkit-scrollbar {
+  width: 0.7em;
+  height: 0.7em;
+  background-color: #F7F7F7; }
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #81bde2; }
+
 #main-interface {
   height: 100vh;
   width: 100vw; }
@@ -31,8 +46,12 @@ h1, h2, h3, h4, h5, h6 {
 ul {
   padding-left: 20px; }
 
+.modal-body {
+  overflow-y: scroll;
+  max-height: 30vh; }
+
 .layer {
-  box-shadow: 0 0 7px 0px rgba(0, 0, 0, 0.3); }
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5); }
 
 .rst__row:hover {
   cursor: pointer; }
@@ -72,16 +91,22 @@ header {
         margin: 0 0.25em;
         width: 1.5em;
         color: #F7F7F7;
-        background-color: #47525E;
+        background-color: #1A5DAD;
+        border: none;
         border-radius: 10px;
         text-align: center;
         font-size: 1em;
         box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.3); }
-        header .navbar .toolbar .action-button .fa-users {
-          font-size: 0.9em; }
-        header .navbar .toolbar .action-button:hover {
+        header .navbar .toolbar .action-button:hover:not(:disabled) {
           background: #30a4dd;
           cursor: pointer; }
+        header .navbar .toolbar .action-button:disabled {
+          background: #47525E;
+          color: gray; }
+        header .navbar .toolbar .action-button .fa-users {
+          font-size: 0.9em; }
+        header .navbar .toolbar .action-button:focus {
+          outline: none; }
   header .navbar-brand {
     padding: 0;
     height: 100%;
@@ -95,6 +120,7 @@ header {
   flex-direction: row;
   flex-grow: 1;
   align-items: stretch;
+  height: auto;
   /** Navigation Pane **/
   /* navigation-pane */
   /* #details-pane */ }
@@ -103,9 +129,9 @@ header {
     padding: 1em 1.5rem;
     z-index: 500; }
   .main #navigation-pane {
-    width: 340px;
-    max-width: 340px;
-    overflow: auto;
+    width: 400px;
+    max-width: 400px;
+    overflow-y: auto;
     /* search-bar-wrapper */ }
     .main #navigation-pane a {
       color: #0275d8; }
@@ -128,7 +154,7 @@ header {
           vertical-align: -8px; }
       .main #navigation-pane #search-bar-wrapper #search-bar {
         border-radius: 0 20px 20px 0;
-        padding: 1em 0.5em 1em 0.5em;
+        padding: 0 0.5em 0 0.5em;
         width: 100%;
         height: 40px;
         border-left: none;
@@ -160,21 +186,6 @@ header {
         list-style-type: disc; }
       .main #navigation-pane > ul li {
         margin-top: 0.5em; }
-    .main #navigation-pane div.rst__tree {
-      width: auto;
-      height: auto; }
-    .main #navigation-pane::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      background-color: #F7F7F7; }
-    .main #navigation-pane::-webkit-scrollbar {
-      width: 0.7em;
-      height: 0.7em;
-      background-color: #F7F7F7; }
-    .main #navigation-pane::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-      background-color: #81bde2; }
   .main #view-pane {
     background-color: #335566;
     /*#596B7F*/
@@ -190,11 +201,13 @@ header {
     flex-grow: 0;
     display: flex;
     flex-direction: column;
-    max-width: 290px;
+    width: 340px;
+    max-width: 340px;
     /* details-list */
     /* .comments-wrapper */ }
     .main #details-pane #details-list {
       margin-top: 1em;
+      border-collapse: collapse;
       width: 100%; }
       .main #details-pane #details-list thead > tr {
         border-bottom: 2px solid #94989F; }
@@ -204,10 +217,13 @@ header {
         vertical-align: top; }
         .main #details-pane #details-list tr td {
           padding: 0.4em 0;
-          font-weight: bold; }
+          font-weight: bold;
+          word-break: break-all;
+          width: 5em; }
           .main #details-pane #details-list tr td:last-child {
             padding-left: 0.6em;
-            font-weight: normal; }
+            font-weight: normal;
+            width: auto; }
     .main #details-pane .comments-wrapper {
       margin-top: auto; }
       .main #details-pane .comments-wrapper textarea {
