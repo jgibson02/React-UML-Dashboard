@@ -103,8 +103,8 @@ header {
     padding: 1em 1.5rem;
     z-index: 500; }
   .main #navigation-pane {
-    width: 24.5em;
-    max-width: 24.5em;
+    width: 340px;
+    max-width: 340px;
     overflow: auto;
     /* search-bar-wrapper */ }
     .main #navigation-pane a {
