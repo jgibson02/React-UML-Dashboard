@@ -56,14 +56,12 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-.details-icon {
-    margin-left: 0.5em;
-    padding-left: 0.5em;
-    border-left: 2px solid $text;
-}
-
 ul {
     padding-left: 20px;
+}
+
+button#comments-copy i {
+    font-size: 1.2em;
 }
 
 .modal-body {
@@ -119,28 +117,27 @@ header {
             }
 
             .action-button {
-                margin: 0 0.25em;
-                width: 1.5em;
-                color: $header-bg;
-                background-color: $primary;
+                margin: 0 0.2em;
+                width: 1.65em;
+                height: 1.65em;
+                color: $text;
+                background: none;
                 border: none;
-                border-radius: 10px;
-                text-align: center;
-                font-size: 1em;
-                box-shadow: 0 1px 3px 0px rgba(0,0,0,0.3);
+                border-radius: 50%;
+
+                i {
+                    vertical-align: -0.15em;
+                    font-size: 1em;
+                }
 
                 &:hover:not(:disabled) {
-                    background: $link-hover;
+                    background-color: #E0E0E0;
+                    color: #1E1E1E;
                     cursor: pointer;
                 }
 
                 &:disabled {
-                    background: $text;
-                    color: gray;
-                }
-
-                .fa-users {
-                    font-size: 0.9em;
+                    color: rgba(0,0,0,0.26);
                 }
 
                 &:focus {

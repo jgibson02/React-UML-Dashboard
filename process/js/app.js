@@ -174,9 +174,9 @@ var MainInterface = React.createClass({
                     <ModalTitle>Changelog</ModalTitle>
                 </ModalHeader>
                 <ModalBody>
-                    {this.state.changelog.split("\n").map(function(item) {
+                    {this.state.changelog.split("\n").map(function(item, i) {
                         return (
-                            <span>
+                            <span key={i}>
                                 {item}
                                 <br/>
                             </span>
@@ -196,9 +196,9 @@ var MainInterface = React.createClass({
                 </ModalHeader>
                 <ModalBody>
                     <p id="commentsBox">
-                        {this.state.projectComments.split("\n").map(function(item) {
+                        {this.state.projectComments.split("\n").map(function(item, i) {
                             return (
-                                <span>
+                                <span key={i}>
                                     {item}
                                     <br/>
                                 </span>
@@ -208,7 +208,7 @@ var MainInterface = React.createClass({
                 </ModalBody>
                 <ModalFooter>
                     <button id="comments-copy" className="btn btn-primary" data-clipboard-target="#commentsBox">
-                        <i className="fa fa-clipboard"></i> Copy
+                        Copy
                     </button>
                     <button className="btn btn-default" onClick={this.hideComments}>
                         Close
@@ -219,12 +219,10 @@ var MainInterface = React.createClass({
                 <nav className="navbar" role="navigation">
                     <h1 className="navbar-brand">Project: {this.state.projectData.projectName}</h1>
                     <div className="toolbar">
-                        <button className="action-button" title="Changes" onClick={this.showChangelog}><i className="fa fa-clock-o"></i></button>
-                        <button className="action-button" title="Comments" onClick={this.showComments}><i className="fa fa-commenting"></i></button>
-                        <button className="action-button" title="Download" onClick={this.downloadDiagram} disabled={diagramNotSelected}><i className="fa fa-download"></i></button>
-                        <span className="details-icon">
-                            <button className="action-button" title="Show Details" onClick={this.toggleDetails} disabled={diagramNotSelected}><i className="fa fa-info"></i></button>
-                        </span>
+                        <button className="action-button" title="Changes" onClick={this.showChangelog}><i className="material-icons">history</i></button>
+                        <button className="action-button" title="Comments" onClick={this.showComments}><i className="material-icons">comment</i></button>
+                        <button className="action-button" title="Download" onClick={this.downloadDiagram} disabled={diagramNotSelected}><i className="material-icons">file_download</i></button>
+                        <button className="action-button" id="details-button" title="Show Details" onClick={this.toggleDetails} disabled={diagramNotSelected}><i className="material-icons">info_outline</i></button>
                     </div>
                 </nav>
             </header>

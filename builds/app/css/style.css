@@ -38,13 +38,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   margin: 0; }
 
-.details-icon {
-  margin-left: 0.5em;
-  padding-left: 0.5em;
-  border-left: 2px solid #47525E; }
-
 ul {
   padding-left: 20px; }
+
+button#comments-copy i {
+  font-size: 1.2em; }
 
 .modal-body {
   overflow-y: scroll;
@@ -88,23 +86,22 @@ header {
       header .navbar .toolbar * {
         display: inline-block; }
       header .navbar .toolbar .action-button {
-        margin: 0 0.25em;
-        width: 1.5em;
-        color: #F7F7F7;
-        background-color: #1A5DAD;
+        margin: 0 0.2em;
+        width: 1.65em;
+        height: 1.65em;
+        color: #47525E;
+        background: none;
         border: none;
-        border-radius: 10px;
-        text-align: center;
-        font-size: 1em;
-        box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.3); }
+        border-radius: 50%; }
+        header .navbar .toolbar .action-button i {
+          vertical-align: -0.15em;
+          font-size: 1em; }
         header .navbar .toolbar .action-button:hover:not(:disabled) {
-          background: #30a4dd;
+          background-color: #E0E0E0;
+          color: #1E1E1E;
           cursor: pointer; }
         header .navbar .toolbar .action-button:disabled {
-          background: #47525E;
-          color: gray; }
-        header .navbar .toolbar .action-button .fa-users {
-          font-size: 0.9em; }
+          color: rgba(0, 0, 0, 0.26); }
         header .navbar .toolbar .action-button:focus {
           outline: none; }
   header .navbar-brand {
