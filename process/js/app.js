@@ -217,7 +217,7 @@ var MainInterface = React.createClass({
             </Modal>
             <header className="layer">
                 <nav className="navbar" role="navigation">
-                    <h1 className="navbar-brand">Project: {this.state.projectData.projectName}</h1>
+                    <h1 className="navbar-brand">Project: <span id="project-name">{this.state.projectData.projectName}</span></h1>
                     <div className="toolbar">
                         <button className="action-button" title="Changes" onClick={this.showChangelog}><i className="material-icons">history</i></button>
                         <button className="action-button" title="Comments" onClick={this.showComments}><i className="material-icons">comment</i></button>
@@ -230,7 +230,7 @@ var MainInterface = React.createClass({
             <div className="main">
                 <aside id="navigation-pane" className="layer">
                     <div id="search-bar-wrapper">
-                        <span id="search-bar-icon"><i className="fa fa-search"></i></span>
+                        <span id="search-bar-icon"><i className="material-icons">search</i></span>
                         <input type="text" placeholder='Search' id='search-bar' onChange={this.searchDiagrams}/>
                     </div>
                     <DiagramsTree

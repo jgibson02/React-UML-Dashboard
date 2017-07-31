@@ -98,14 +98,13 @@ header {
     z-index: 1000;
 
     .navbar {
-        margin-bottom: 0;
         flex-grow: 0;
         margin: 0 30px;
         display: flex;
         flex-direction: row;
         border: none;
         border-radius: 0;
-        padding: 10px 0;
+        padding: 7px 0;
 
         .toolbar {
             margin-left: auto;
@@ -152,23 +151,26 @@ header {
         color: $text;
         margin: auto 0;
         font-size: 1.5em;
-        font-weight: bold;
+
+        span#project-name {
+            font-weight: bold;
+        }
     }
 }
 
 .main {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  align-items: stretch;
-  height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    align-items: stretch;
+    height: auto;
 
-  /** Navigation Pane **/
-  aside {
-      background-color: $aside-bg;
-      padding: 1em 1.5rem;
-      z-index: 500;
-  }
+    /** Navigation Pane **/
+    aside {
+        background-color: $aside-bg;
+        padding: 1em 1.5rem;
+        z-index: 500;
+    }
 
     #navigation-pane {
         width: 400px;
@@ -185,17 +187,18 @@ header {
             margin-bottom: 0.7em;
 
             #search-bar-icon {
-              left: 30px;
-              height: 40px;
-              background: white;
-              color: #75758B;
-              padding-left: 1em;
-              border-top: 1px solid rgba(0,0,0,0.15);
-              border-left: 1px solid rgba(0,0,0,0.15);
-              border-bottom: 1px solid rgba(0,0,0,0.15);
-              border-radius: 20px 0 0 20px;
+                height: 40px;
+                background: white;
+                color: #75758B;
+                padding-left: 0.8em;
+                border-top: 1px solid rgba(0,0,0,0.15);
+                border-left: 1px solid rgba(0,0,0,0.15);
+                border-bottom: 1px solid rgba(0,0,0,0.15);
+                border-radius: 20px 0 0 20px;
 
-              i { vertical-align: -8px; }
+                i {
+                    vertical-align: -14px;
+                }
             }
 
             #search-bar {
