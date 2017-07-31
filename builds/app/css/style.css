@@ -95,6 +95,11 @@ header {
         header .navbar .toolbar .action-button i {
           vertical-align: -0.15em;
           font-size: 1em; }
+          header .navbar .toolbar .action-button i.history-icon {
+            vertical-align: -0.1em;
+            margin-right: 2px; }
+          header .navbar .toolbar .action-button i.info-icon {
+            vertical-align: -0.1em; }
         header .navbar .toolbar .action-button:hover:not(:disabled) {
           background-color: #E0E0E0;
           color: #1E1E1E;

@@ -127,6 +127,15 @@ header {
                 i {
                     vertical-align: -0.15em;
                     font-size: 1em;
+
+                    &.history-icon {
+                        vertical-align: -0.1em;
+                        margin-right: 2px;
+                    }
+
+                    &.info-icon {
+                        vertical-align: -0.1em;
+                    }
                 }
 
                 &:hover:not(:disabled) {

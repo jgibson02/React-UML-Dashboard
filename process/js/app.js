@@ -219,10 +219,10 @@ var MainInterface = React.createClass({
                 <nav className="navbar" role="navigation">
                     <h1 className="navbar-brand">Project: <span id="project-name">{this.state.projectData.projectName}</span></h1>
                     <div className="toolbar">
-                        <button className="action-button" title="Changes" onClick={this.showChangelog}><i className="material-icons">history</i></button>
+                        <button className="action-button" title="Changes" onClick={this.showChangelog}><i className="material-icons history-icon">history</i></button>
                         <button className="action-button" title="Comments" onClick={this.showComments}><i className="material-icons">comment</i></button>
                         <button className="action-button" title="Download" onClick={this.downloadDiagram} disabled={diagramNotSelected}><i className="material-icons">file_download</i></button>
-                        <button className="action-button" id="details-button" title="Show Details" onClick={this.toggleDetails} disabled={diagramNotSelected}><i className="material-icons">info_outline</i></button>
+                        <button className="action-button" id="details-button" title="Show Details" onClick={this.toggleDetails} disabled={diagramNotSelected}><i className="material-icons info-icon">info_outline</i></button>
                     </div>
                 </nav>
             </header>
