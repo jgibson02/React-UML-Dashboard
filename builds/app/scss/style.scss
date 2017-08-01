@@ -73,8 +73,13 @@ button#comments-copy i {
     box-shadow: 0 0 10px 0px rgba(0,0,0,0.5);
 }
 
-.rst__row:hover {
+.node-parent > .rst__rowContents {
+    
+}
+
+.node-child:hover > .rst__rowContents {
     cursor: pointer;
+    background: #E2E2E2;
 }
 
 .rst__rowLabel {
@@ -129,12 +134,16 @@ header {
                     font-size: 1em;
 
                     &.history-icon {
-                        vertical-align: -0.1em;
+                        vertical-align: -5px;
                         margin-right: 2px;
                     }
 
+                    &.comment-icon {
+                        vertical-align: -5px;
+                    }
+
                     &.info-icon {
-                        vertical-align: -0.1em;
+                        vertical-align: -5px;
                     }
                 }
 

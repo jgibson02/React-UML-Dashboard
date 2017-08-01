@@ -220,7 +220,7 @@ var MainInterface = React.createClass({
                     <h1 className="navbar-brand">Project: <span id="project-name">{this.state.projectData.projectName}</span></h1>
                     <div className="toolbar">
                         <button className="action-button" title="Changes" onClick={this.showChangelog}><i className="material-icons history-icon">history</i></button>
-                        <button className="action-button" title="Comments" onClick={this.showComments}><i className="material-icons">comment</i></button>
+                        <button className="action-button" title="Comments" onClick={this.showComments}><i className="material-icons comment-icon">comment</i></button>
                         <button className="action-button" title="Download" onClick={this.downloadDiagram} disabled={diagramNotSelected}><i className="material-icons">file_download</i></button>
                         <button className="action-button" id="details-button" title="Show Details" onClick={this.toggleDetails} disabled={diagramNotSelected}><i className="material-icons info-icon">info_outline</i></button>
                     </div>
@@ -261,7 +261,6 @@ var ViewPane = React.createClass({
 });
 
 var DiagramsTree = React.createClass({
-
     render: function() {
         return (
             <SortableTree
@@ -272,13 +271,16 @@ var DiagramsTree = React.createClass({
                 slideRegionSize = {50}
                 rowHeight = {70}
                 canDrag = {false}
-                isVirtualized = {true}
+                isVirtualized = {false}
                 generateNodeProps = {
                     function(rowInfo) {
+                        var isChild = rowInfo.path.length > 1;
                         return ({
+                            className: isChild ? "node-child" : "node-parent",
                             onClick: function() {
-                                if (rowInfo.path.length > 1)
-                                    this.props.onClick(rowInfo.node)
+                                if (isChild) {
+                                    this.props.onClick(rowInfo.node);
+                                }
                             }.bind(this)
                         })
                     }.bind(this)
