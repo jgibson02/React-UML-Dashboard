@@ -51,6 +51,19 @@ button#comments-copy i {
 .layer {
   box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5); }
 
+.node-parent button {
+  width: 1.5em;
+  height: 1.5em;
+  margin-left: 0.3em;
+  background: none;
+  outline: none;
+  border: none;
+  font-weight: bold;
+  text-align: center;
+  padding: 0;
+  color: #1A5DAD;
+  cursor: default; }
+
 .node-child:hover > .rst__rowContents {
   cursor: pointer;
   background: #E2E2E2; }

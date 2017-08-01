@@ -275,7 +275,11 @@ var DiagramsTree = React.createClass({
                 generateNodeProps = {
                     function(rowInfo) {
                         var isChild = rowInfo.path.length > 1;
+
                         return ({
+                            buttons: [
+                                rowInfo.node.children ? <button>{rowInfo.node.children.length}</button>  : null
+                            ],
                             className: isChild ? "node-child" : "node-parent",
                             onClick: function() {
                                 if (isChild) {
