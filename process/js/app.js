@@ -147,14 +147,10 @@ var MainInterface = React.createClass({
                         <tr><th colSpan='2'>Details</th></tr>
                     </thead>
                     <tbody>
+                        <tr><td>Context:</td><td>{this.state.selectedDiagram.qualifiedName}</td></tr>
                         <tr><td>Type:</td><td>{this.state.selectedDiagram.type}</td></tr>
                         <tr><td>Modified:</td><td>{this.state.selectedDiagram.subtitle}</td></tr>
-                        <tr><td>Notes:</td><td>Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim
-                             ad minim veniam, quis nostrud exercitation ullamco
-                             laboris nisi ut aliquip ex ea commodo consequat.
-                        </td></tr>
+                        <tr><td>Notes:</td><td>{this.state.selectedDiagram.documentation}</td></tr>
                     </tbody>
                 </table>
                 <div className="comments-wrapper">
@@ -267,11 +263,11 @@ var DiagramsTree = React.createClass({
                 treeData = { this.props.treeData }
                 onChange = { function(treeData) { return this.props.onChange(treeData)}.bind(this) }
                 searchQuery = { this.props.searchQuery }
+                searchFocusOffset = {0}
                 scaffoldBlockPxWidth = {30}
                 slideRegionSize = {50}
                 rowHeight = {70}
                 canDrag = {false}
-                isVirtualized = {false}
                 generateNodeProps = {
                     function(rowInfo) {
                         var isChild = rowInfo.path.length > 1;
@@ -289,7 +285,6 @@ var DiagramsTree = React.createClass({
                         })
                     }.bind(this)
                 }
-                style = {{height: '94%'}}
             />
         ); // return
     } // render

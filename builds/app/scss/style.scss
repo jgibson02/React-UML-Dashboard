@@ -7,7 +7,7 @@ $header-bg: #F7F7F7;
 $scrollbar: #81bde2;
 $search-bar-outline: #9ec5e5;
 $text: #47525E;
-$primary: #1A5DAD;
+$nasa-blue: #1A5DAD;
 
 /**  Basic Page CSS **/
 body {
@@ -33,7 +33,7 @@ body {
     &::-webkit-scrollbar-thumb {
         border-radius: 10px;
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-        background-color: $scrollbar;
+        background-color: $nasa-blue;
     }
 }
 
@@ -73,43 +73,6 @@ button#comments-copy i {
     box-shadow: 0 0 10px 0px rgba(0,0,0,0.5);
 }
 
-.node-parent {
-
-    button {
-        width: 1.5em;
-        height: 1.5em;
-        margin-left: 0.3em;
-        background: none;
-        outline: none;
-        border: none;
-        font-weight: bold;
-        text-align: center;
-        padding: 0;
-        color: #1A5DAD;
-        cursor: default;
-    }
-}
-
-.node-child:hover > .rst__rowContents {
-    cursor: pointer;
-    background: #E2E2E2;
-}
-
-.rst__rowLabel {
-    padding-right: 0;
-}
-.rst__rowContents {
-    padding: 0 10px;
-}
-
-.rst__rowTitleWithSubtitle {
-    height: 1rem;
-}
-
-.rst__rowSubtitle {
-    font-size: 60%;
-}
-
 /**  Header Navigation **/
 header {
     background-color: $header-bg;
@@ -141,28 +104,20 @@ header {
                 background: none;
                 border: none;
                 border-radius: 50%;
+                text-align: center;
+                line-height: 50%;
 
                 i {
-                    vertical-align: -0.15em;
                     font-size: 1em;
 
                     &.history-icon {
-                        vertical-align: -5px;
                         margin-right: 2px;
-                    }
-
-                    &.comment-icon {
-                        vertical-align: -5px;
-                    }
-
-                    &.info-icon {
-                        vertical-align: -5px;
                     }
                 }
 
                 &:hover:not(:disabled) {
                     background-color: #E0E0E0;
-                    color: #1E1E1E;
+                    color: $nasa-blue;
                     cursor: pointer;
                 }
 
@@ -194,7 +149,7 @@ header {
     flex-direction: row;
     flex-grow: 1;
     align-items: stretch;
-    height: auto;
+    max-height: calc(100% - 60px);
 
     /** Navigation Pane **/
     aside {
@@ -204,8 +159,8 @@ header {
     }
 
     #navigation-pane {
-        width: 400px;
-        max-width: 400px;
+        width: 415px;
+        max-width: 415px;
         overflow-y: auto;
 
         a {
@@ -219,7 +174,7 @@ header {
 
             #search-bar-icon {
                 height: 40px;
-                background: white;
+                background: $header-bg;
                 color: #75758B;
                 padding-left: 0.8em;
                 border-top: 1px solid rgba(0,0,0,0.15);
@@ -233,6 +188,7 @@ header {
             }
 
             #search-bar {
+                background: $header-bg;
                 border-radius: 0 20px 20px 0;
                 padding: 0 0.5em 0 0.5em;
                 width: 100%;
@@ -255,15 +211,52 @@ header {
             } /* search-bar */
         } /* search-bar-wrapper */
 
-        & > ul { /* List of types */
-            margin-top: 1em;
-            list-style-type: circle;
+        .rst__tree {
+            height: 94% !important;
+            overflow: auto;
+            border: 1px dashed $nasa-blue;
+            border-radius: 0.35em;
 
-            & ul { /* Type-specific lists */
-                list-style-type: disc;
+            & > *, & .ReactVirtualized__List {
+                width: 100% !important;
+                height: 100% !important;
             }
-            li {
-                margin-top: 0.5em;
+
+            .node-parent {
+
+                button {
+                    width: 1.5em;
+                    height: 1.5em;
+                    margin-left: 0.3em;
+                    background: none;
+                    outline: none;
+                    border: none;
+                    font-weight: bold;
+                    text-align: center;
+                    padding: 0;
+                    color: $nasa-blue;
+                    cursor: default;
+                }
+            }
+
+            .node-child:hover > .rst__rowContents {
+                cursor: pointer;
+                background: #E2E2E2;
+            }
+
+            .rst__rowLabel {
+                padding-right: 0;
+            }
+            .rst__rowContents {
+                padding: 0 10px;
+            }
+
+            .rst__rowTitleWithSubtitle {
+                height: 1rem;
+            }
+
+            .rst__rowSubtitle {
+                font-size: 60%;
             }
         }
 
