@@ -161,6 +161,7 @@ header {
     #navigation-pane {
         width: 415px;
         max-width: 415px;
+        max-height: 100%;
         overflow-y: auto;
 
         a {
@@ -213,6 +214,7 @@ header {
 
         .rst__tree {
             height: 94% !important;
+            max-height: 94%;
             overflow: auto;
             border: 1px dashed $nasa-blue;
             border-radius: 0.35em;
@@ -220,6 +222,7 @@ header {
             & > *, & .ReactVirtualized__List {
                 width: 100% !important;
                 height: 100% !important;
+                max-height: 100%;
             }
 
             .node-parent {

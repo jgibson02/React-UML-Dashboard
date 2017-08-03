@@ -27,7 +27,7 @@ var MainInterface = React.createClass({
         } //return
     }, //getInitialState
 
-    componentDidMount: function() {
+    componentWillMount: function() {
         this.dataRequest = $.get('./js/data.txt', function(result) {
             var tempData = JSON.parse(result);
             var diagramTypesArray = tempData.diagrams;
@@ -42,6 +42,9 @@ var MainInterface = React.createClass({
                 projectData: tempData
             }); //setState
         }.bind(this)); //dataRequest
+    }, // compontentWillMount
+
+    componentDidMount: function() {
         this.changelogRequest = $.get('./changelog.txt', function(result) {
             var tempChangelog = result;
             this.setState({
@@ -121,7 +124,7 @@ var MainInterface = React.createClass({
             for (var j = 0; j < treeData[i].children.length; j++) {
                 var diagram = treeData[i].children[j];
                 if (diagram.comments !== "") {
-                    commentsList += ("Diagram: " + diagram.title + "\nComments: " + diagram.comments + "\n\n");
+                    commentsList += ("Diagram: " + diagram.qualifiedName + "\nComments: " + diagram.comments + "\n\n");
                 }
             }
         }
